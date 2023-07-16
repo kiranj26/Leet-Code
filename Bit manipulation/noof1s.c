@@ -25,12 +25,22 @@ int hammingWeight(uint32_t num)
     return noof1s;
     
 }
-
+int count1s(int num) { 
+    int count = 0;
+    while(num != 0) {
+        num = num & (num - 1);
+        count ++;
+    }
+    return count;
+}
 int main(int argc, char *argv[])
 {
-    uint32_t a = 15;
+    uint32_t a = 255;
     uint32_t result = hammingWeight(a);
+    uint32_t result1 = count1s(a);
     printf("Hamming weight : %d\n", result);
+    printf("Hamming weight : %d\n", result1);
+
 }
 
 
