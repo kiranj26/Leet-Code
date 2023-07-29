@@ -3,6 +3,7 @@
 ![LeetCode Logo](leet-code-logo.png)
 
 # Bit Manipulation Cheat Sheet
+## Look Up tables 
 
 ## Check if two integers have opposite signs
 ```c++
@@ -198,3 +199,6 @@ while(n){
 }
 
 ```
+
+# Website [Bit Twiddling Hacks by Standford]
+https://graphics.stanford.edu/~seander/bithacks.html
