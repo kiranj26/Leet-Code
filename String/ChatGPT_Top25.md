@@ -9,10 +9,9 @@
 
 ## Easy Problems
 
-
-1. [Reverse String](https://leetcode.com/problems/reverse-string/)
+1. [Reverse String](https://leetcode.com/problems/reverse-string/) ✅
 2. [First Unique Character in a String](https://leetcode.com/problems/first-unique-character-in-a-string/)
-3. [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+3. [Valid Anagram](https://leetcode.com/problems/valid-anagram/) ✅
 4. [Implement strStr()](https://leetcode.com/problems/implement-strstr/)
 5. [Count and Say](https://leetcode.com/problems/count-and-say/)
 6. [To Lower Case](https://leetcode.com/problems/to-lower-case/)
@@ -20,7 +19,9 @@
 8. [Palindrome](https://leetcode.com/problems/palindrome-linked-list/)
 9. [Detect Capital](https://leetcode.com/problems/detect-capital/)
 10. [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) ✅
-
+11. [Longest Palindrome]() ✅
+12. [Reverse a vowel of a string]() ✅
+13. [Longest Common Prefix]()
 
 ## Medium
 1. [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
