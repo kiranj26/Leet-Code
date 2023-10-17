@@ -25,7 +25,7 @@
 
 ## Medium
 1. [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
-2. [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+2. [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)✅ (Sliding Windows Problem)
 3. [Valid Parenthesis String](https://leetcode.com/problems/valid-parenthesis-string/)
 4. [Decode Ways](https://leetcode.com/problems/decode-ways/)
 5. [Multiply Strings](https://leetcode.com/problems/multiply-strings/)
