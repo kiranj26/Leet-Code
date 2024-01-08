@@ -4,7 +4,35 @@
 #include <string.h>
 
 /**
- * Brute Firce Checking if each word dict word is available in main string
+ * Determines if a string can be segmented into a sequence of dictionary words.
+ *
+ * Approach:
+ * The function uses dynamic programming to build up a solution in a bottom-up manner.
+ * It creates a boolean DP array where DP[i] represents whether the substring s[0...i] 
+ * can be segmented into dictionary words. The DP array is iterated backward.
+ *
+ * For each position i in the string s, the function iterates through all dictionary words.
+ * It checks if the word can fit in the substring starting from i and compares the word
+ * with the substring. If a word matches and the rest of the substring (after the word) 
+ * can also be segmented (indicated by DP[i + word length]), DP[i] is marked true.
+ *
+ * This process continues until the start of the string is reached. The value at DP[0] gives
+ * the final result, indicating whether the entire string s can be segmented into dictionary words.
+ *
+ * Time Complexity:
+ * O(n * m * l), where n is the length of the string s, m is the number of words in the dictionary,
+ * and l is the average length of the words in the dictionary. This complexity arises as for each 
+ * position in s (n), the function potentially iterates through all words (m) and compares a substring
+ * of length up to l.
+ *
+ * Space Complexity:
+ * O(n), where n is the length of the string s. This is needed for the DP array. The space is used 
+ * to keep track of the segmentation status of each substring of s.
+ *
+ * @param s The string to be segmented.
+ * @param wordDict Array of word dictionary strings.
+ * @param wordDictSize Size of the word dictionary.
+ * @return true if the string can be segmented, false otherwise.
  */
 bool wordBreak(char* s, char** wordDict, int wordDictSize) {
     int len = strlen(s);

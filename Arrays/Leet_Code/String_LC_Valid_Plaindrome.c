@@ -16,6 +16,10 @@ int isAlphanumeric(char ch)
 }
 
 bool isPalindrome(char *s) {
+    if (strlen(s) == 1)
+    {
+        return true;
+    }
     char * start  = s;
     int i = 0;
     char * validString = (char *)malloc(sizeof(char) * strlen(s));
