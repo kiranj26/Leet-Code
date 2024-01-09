@@ -46,6 +46,21 @@ int minJumps(int nums[], int numsSize) {
     return result;
 }
 
+/*
+Most Efficent
+int jump(int* nums, int numsSize) {
+    int jumps = 0, currentEnd = 0, farthest = 0;
+    for (int i = 0; i < numsSize - 1; i++) {
+        farthest = (farthest > i + nums[i]) ? farthest : i + nums[i];
+        if (i == currentEnd) {
+            jumps++;
+            currentEnd = farthest;
+        }
+    }
+    return jumps;
+}
+*/
+
 int main() {
     // Example test cases
     int nums1[] = {2, 3, 1, 1, 4};

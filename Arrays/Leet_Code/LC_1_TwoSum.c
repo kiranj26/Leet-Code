@@ -60,7 +60,7 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
  * We allocate an array (mimicking a hash table) of the same size as the input array.
  */
 
-int* twoSum(int* nums, int numsSize, int target, int* returnSize)
+/* int* twoSum(int* nums, int numsSize, int target, int* returnSize)
 {
     int * result;
     result = (int *)malloc(2 * sizeof(int));
@@ -91,6 +91,48 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize)
     }
 
     return NULL;
+} */
+
+/*
+Even more efficent using Hash Table mimiced using Structure
+*/
+
+typedef struct {
+    int key;
+    int val;
+} HashTable;
+
+unsigned int hash(int key, int tableSize) {
+    unsigned int hashVal = abs(key % tableSize);
+    return hashVal;
+}
+
+void insert(HashTable *ht, int key, int val, int tableSize) {
+    int index = hash(key, tableSize);
+    while (ht[index].key != INT_MIN) {
+        if (ht[index].key == key) {
+            ht[index].val = val;
+            return;
+        }
+        index = (index + 1) % tableSize;
+    }
+    ht[index].key = key;
+    ht[index].val = val;
+}
+
+int search(HashTable *ht, int key, int tableSize) {
+    int index = hash(key, tableSize);
+    while (ht[index].key != INT_MIN) {
+        if (ht[index].key == key) {
+            return ht[index].val;
+        }
+        index = (index + 1) % tableSize;
+    }
+    return -1;
+}
+
+int* twoSum(int* nums, int numsSize, int target, int* returnSize){
+    
 }
 
 int main() {

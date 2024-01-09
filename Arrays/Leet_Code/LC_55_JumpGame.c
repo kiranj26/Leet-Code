@@ -1,5 +1,21 @@
 #include <stdio.h>
 #include <stdbool.h>
+/* Brute Force
+*/
+/* 
+bool canJump(int* nums, int numsSize) {
+    if (numsSize == 1) return true;
+
+    for (int i = 0; i < numsSize - 1; i++) {
+        if (nums[i] == 0) continue;
+        for (int j = 1; j <= nums[i] && i + j < numsSize; j++) {
+            if (i + j == numsSize - 1) return true;
+        }
+    }
+
+    return false;
+} 
+*/
 
 /* Greedy Approach Explanation:
  * The function canJump uses a greedy approach to solve the "Jump Game" problem. 

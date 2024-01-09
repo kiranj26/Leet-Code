@@ -1,6 +1,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/*
+1. Mapping Setup:
+   - Define a mapping from digits to corresponding letters, similar to a phone keypad.
+
+2. Handling Edge Cases:
+   - Check if the input `digits` string is empty or null. If so, return no combinations (NULL) and set `returnSize` to 0.
+
+3. Calculating Total Combinations:
+   - Determine the length of the input digits.
+   - Iterate over each digit to calculate the total number of combinations by multiplying the lengths of the letter strings corresponding to each digit.
+
+4. Memory Allocation for Result:
+   - Allocate memory for an array of strings (`char**`) to hold all possible combinations, sized by the total number of combinations.
+   - For each combination, allocate memory for a string to store the combination, sized by the length of the input digits plus one for the null terminator.
+
+5. Generating Combinations:
+   - Use nested loops to generate each combination.
+   - For each combination (`i`):
+     - Calculate the combination index (initially set to `i`).
+     - For each character position (`j`) in the combination:
+       - Determine the current digit from `digits`.
+       - Find the corresponding letter string in the mapping array.
+       - Calculate the correct letter for this position using modulo (`%`) and division operations, based on the combination index and the length of the letter string.
+     - Update the combination index for the next digit.
+
+6. Setting Return Size:
+   - Set `*returnSize` to the total number of combinations.
+
+7. Memory Cleanup Function:
+   - Implement `freeLetterCombinations` to free the allocated memory for each combination and for the array of combinations.
+
+8. Testing in Main Function:
+   - The `main` function contains test cases demonstrating the use of `letterCombinations`.
+   - It prints each combination and then frees the allocated memory.
+*/
 char* mapping[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
 char** letterCombinations(char* digits, int* returnSize) {
