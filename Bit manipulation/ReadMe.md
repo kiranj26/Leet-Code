@@ -2,7 +2,7 @@
 
 ![LeetCode Logo](leet-code-logo.png)
 
-# Bit Manipulation Cheat Sheet
+# Bit Manipulation Cheat Sheet 
 ## Look Up tables 
 
 ## Check if two integers have opposite signs

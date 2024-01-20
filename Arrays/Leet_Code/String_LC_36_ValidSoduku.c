@@ -17,7 +17,7 @@
 // 3. If no duplicates are found, return true (valid Sudoku).
 //
 // Time Complexity: O(1) - The board size is fixed at 9x9, leading to a constant number of operations.
-// Space Complexity: O(1) - The additional space used (three 9x9 arrays) is also constant.
+// Space Complexity: O(1) - The additional space used  n (three 9x9 arrays) is also constant.
 
 
 bool isValidSudoku(char board[9][9]) {
