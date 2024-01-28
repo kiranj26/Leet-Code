@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-
+/* 
 // @ Note : My Ugly Approach
 // Time Complexity : O(s + t)
 // Space Complexity : O(s + t)
@@ -72,6 +72,29 @@ bool isAnagram(char* s, char* t) {
     }
     return true;
 
+} */
+int compfunc(void * a, void * b)
+{
+    return (*(char *)a - *(char *)b );
+}
+bool isAnagram(char* s, char* t) {
+    // sort the arrays using q sort
+    qsort(s, strlen(s), sizeof(char), compfunc);
+    qsort(t, strlen(t), sizeof(char), compfunc);
+
+    // compare two sorted strings
+    int longest_string =  (strlen(s) >= strlen(t)) ?strlen(s) :strlen(t) ;
+
+    for (int i = 0; i< longest_string; i++)
+    {
+        if (s[i] == t[i])
+        {
+
+        }else{
+            return false;
+        }
+    }
+    return true;
 }
 
 int main() {
