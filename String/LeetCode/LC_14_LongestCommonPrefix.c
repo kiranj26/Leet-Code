@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-// Function prototype for longestCommonPrefix
+/* // Function prototype for longestCommonPrefix
 // @Note : My Ugly Approach
 // @Time Complexity : O(n*m)
 // @Space Complexity : O(n)
@@ -55,9 +55,31 @@ char * longestCommonPrefix(char ** strs, int strsSize){
     }
     *returnStr = '\0';
     return ret;
-}
+} */
+
+
 
 // @NOte : Online Approach (Methode Name : )
+
+char * longestCommonPrefix(char ** strs, int strsSize){
+    int cntCommonPrefix = 0;
+    int firstStrSize  = strlen(strs[0]);
+
+    for (int i = 0 ; i < firstStrSize; i++)
+    {
+        for (int s  = 1; s < strsSize ; s++)
+        {
+            if (strs[0][i] != strs[s][i])
+            {
+                // load null and return 
+                strs[0][cntCommonPrefix] = '\0';
+                return strs[0];
+            }
+        }
+        cntCommonPrefix++;
+    }
+    return strs[0];
+}
 
 int main() {
     // Test 1
