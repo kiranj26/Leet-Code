@@ -17,7 +17,7 @@
  * Space Complexity: O(1) - no additional space used.
  */
 bool isSubsequence(char* s, char* t) {
-    while(*s || *t)
+    while(*s && *t)
     {
         if (*s == *t)
         {
