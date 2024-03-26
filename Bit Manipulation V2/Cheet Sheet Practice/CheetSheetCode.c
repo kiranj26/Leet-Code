@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int setBit(int num, int pos)
 {
@@ -28,6 +29,82 @@ int SetClearToggleBit(int num, int Setpos, int Clearpos, int Togglepos)
            (num &= ~(1<< Clearpos))   |
            (num ^=  (1 << Togglepos)) ;
 }
+
+int CheckRightmostSet1(int num)
+{
+    return num & -num;
+}
+int CheckRightmostSet1ndPosition(int num)
+{
+    num = num & -num;
+    int position = 0;
+    while(num !=0)
+    {
+        num  = num >> 1;
+        position++;
+    }
+    return position;
+}
+int CheckLeftMostSetBit(int num)
+{
+    /* Approach 1 */
+    /* if (num == 0) return -1;
+    int position = 0;
+    while(num != 0)
+    {
+        num = num >> 1;
+        position ++;
+    }
+    return position; */
+
+    /* Approach 2 */
+    return log2(num);
+}
+
+int ClearLeftMostBit(int num)
+{
+    int dum_num = num;
+    // trarve and find the position of the index at which the lft most index resides
+    int leftmostpos = 0;
+    int position  = 0;
+    while(dum_num != 0)
+    {   
+        if((dum_num & 1) == 1)
+        {
+            leftmostpos = position;
+        }
+        dum_num = dum_num >> 1;
+        position++;
+    }
+
+    int mask = (1 << leftmostpos);
+    return num & ~(mask);
+}
+
+int ClearingOut_NBits(int num, int pos)
+{
+    return num & ~((1<< pos) -1);
+}
+
+int IsolateRightMost0(int num)
+{
+    return ~num & (num + 1);
+}
+int ReverseBits(int num)
+{
+    int reverse = 0;
+    while(num != 0)
+    {
+        reverse<<= 1;
+        if (num & 1)
+        {
+            reverse ^= (1);
+        }
+        num >>= 1;
+    }
+    return reverse;
+}
+
 int main()
 {
     // set a bit 
@@ -43,4 +120,19 @@ int main()
 
     // set clear and toggle in one line 
     printf("Number +%d is set at position 0 and cleared at poisition 3 and toggled at position2 : New Number is =%d\n", 8, SetClearToggleBit(8,0,2,1));
+
+    // check rightmost set bit
+    printf("Number is %d, its right most set bit is %d\n", 8, CheckRightmostSet1ndPosition(10));
+
+    // check the left-most-set bit of a number
+    printf("The nums's %d left most set bt is %d\n", 10, CheckLeftMostSetBit(10));
+
+    // clearing out N bits
+    printf("Number is %d After Clearing Out 3 bits = %d\n",255, ClearingOut_NBits(255,4));
+
+    // Isolating right most clear bit
+    printf("Numbers's = %d Rightmost Set Bit = %d\n", 9, IsolateRightMost0(9));
+
+    // Reverse Bits
+    printf("Original number: %d, Reversed number: %d\n", 10, ReverseBits(10));
 }

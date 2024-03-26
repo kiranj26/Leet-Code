@@ -4,13 +4,13 @@ This cheat sheet provides a collection of 50 essential bit manipulation techniqu
 
 ### Techniques & Shortcuts
 
-1. **Set a bit**: `num |= (1 << i)`
-2. **Clear a bit**: `num &= ~(1 << i)`
-3. **Toggle a bit**: `num ^= (1 << i)`
-4. **Check a bit**: `(num & (1 << i)) != 0`
-5. **Change a bit to `0`**: `num &= ~(1 << i)`
-6. **Change a bit to `1`**: `num |= (1 << i)`    
-**Note : How to use a single line of code to set,clear and toggle a bit**  
+1. **Set a bit**: `num |= (1 << i)`  ✅
+2. **Clear a bit**: `num &= ~(1 << i)`  ✅
+3. **Toggle a bit**: `num ^= (1 << i)`  ✅
+4. **Check a bit**: `(num & (1 << i)) != 0`  ✅
+5. **Change a bit to `0`**: `num &= ~(1 << i)`  ✅
+6. **Change a bit to `1`**: `num |= (1 << i)`  ✅     
+**Note : How to use a single line of code to set,clear and toggle a bit** 🔥 
 ```
 int SetClearToggleBit(int num, int operation, int pos)
 {
@@ -20,24 +20,25 @@ int SetClearToggleBit(int num, int operation, int pos)
 }
 
 ```
-7. **Lowest set bit**: `num & -num`
-8. **Clear lowest set bit**: `num & (num - 1)`
-9. **Get all 1-bits**: `~0`
-10. **Masking out last `i` bits**: `~((1 << i) - 1)`
+7. **Lowest set bit OR Righmost Set bit**: `num & -num` ✅ 🔥
+8. **Left Most Set Bit**: `log2(num)` Use math.h ✅ 🔥    
+8. **Clear lowest set bit**: `num & (num - 1)` ✅ 🔥
+9. **Get all 1-bits**: `~0` ✅
+10. **Masking out (Clearing) last `i` bits**: `~((1 << i) - 1)`✅ 🔥
 11. **Shifting a value `x` left by `n` bits**: `x << n`
 12. **Shifting a value `x` right by `n` bits**: `x >> n`
 13. **Multiplying by 2^n**: `num << n`
 14. **Dividing by 2^n (floored)**: `num >> n`
 15. **Check if number is even**: `num & 1 == 0`
 16. **Check if number is odd**: `num & 1 == 1`
-17. **Swap two numbers without temp variable**: `a ^= b; b ^= a; a ^= b;`
+17. **Swap two numbers without temp variable**: `a ^= b; b ^= a; a ^= b;`✅ 🔥
 18. **Turn off the rightmost 1-bit**: `n & (n - 1)`
-19. **Isolate the rightmost 0-bit**: `~n & (n + 1)`
+19. **Isolate the rightmost 0-bit**: `~n & (n + 1)`✅ 🔥
 20. **Check if a number is a power of two**: `n & (n - 1) == 0`
-21. **Counting bits set to 1**: `while (n) { count++; n &= n - 1; }`
-22. **Reverse bits**: `while (num) { reverse <<= 1; if (num & 1) reverse ^= 1; num >>= 1; }`
-23. **Finding the log base 2 (integer)**: `int log = 0; while (n >>= 1) log++;`
-24. **Find the absolute value**: `(num ^ (num >> 31)) - (num >> 31)`
+21. **Counting bits set to 1**: `while (n) { count++; n &= n - 1; }`✅ 🔥
+22. **Reverse bits**: `while (num) { reverse <<= 1; if (num & 1) reverse ^= 1; num >>= 1; }`✅ 🔥
+23. **Finding the log base 2 (integer)**: `int log = 0; while (n >>= 1) log++;` ✅ 🔥
+24. **Find the absolute value**: `(num ^ (num >> 31)) - (num >> 31)` **Pending**
 25. **Conditionally negate a value without branching**: `(num ^ -flag) + flag` (where `flag` is 0 or 1)
 26. **Merge bits from two numbers**: `(a & mask) | (b & ~mask)`
 27. **Toggle all bits**: `~num`
