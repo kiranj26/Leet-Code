@@ -20,6 +20,12 @@ int SetClearToggleBit(int num, int operation, int pos)
 }
 
 ```
+**OR**    
+```
+number = (number | (1 << set_pos)) & ~(1 << clear_pos) ^ (1 << toggle_pos);
+
+```
+
 7. **Lowest set bit OR Righmost Set bit**: `num & -num` ✅ 🔥
 8. **Left Most Set Bit**: `log2(num)` Use math.h ✅ 🔥    
 8. **Clear lowest set bit**: `num & (num - 1)` ✅ 🔥
