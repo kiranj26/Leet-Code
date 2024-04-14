@@ -23,11 +23,8 @@ int checkBit(int num, int pos)
     return (num & (1<<pos)) != 0;
 }
 
-int SetClearToggleBit(int num, int Setpos, int Clearpos, int Togglepos)
-{
-    return (num |=  (1<< Setpos))     |
-           (num &= ~(1<< Clearpos))   |
-           (num ^=  (1 << Togglepos)) ;
+int SetClearToggleBit(int num, int Setpos, int Clearpos, int Togglepos) {
+    return ((num | (1 << Setpos)) & ~(1 << Clearpos)) ^ (1 << Togglepos);
 }
 
 int CheckRightmostSet1(int num)
@@ -119,7 +116,7 @@ int main()
     printf("Bit at position %d is %d\n",3, checkBit(10,3));
 
     // set clear and toggle in one line 
-    printf("Number +%d is set at position 0 and cleared at poisition 3 and toggled at position2 : New Number is =%d\n", 8, SetClearToggleBit(8,0,2,1));
+    printf("Number %d is set at position 0 and cleared at poisition 3 and toggled at position2 : New Number is =%d\n", 8, SetClearToggleBit(8,0,2,1));
 
     // check rightmost set bit
     printf("Number is %d, its right most set bit is %d\n", 8, CheckRightmostSet1ndPosition(10));
