@@ -101,6 +101,22 @@ int ReverseBits(int num)
     }
     return reverse;
 }
+int AbsoluteValues(int num)
+{
+    int mask = num >> (sizeof(int) * 8 - 1);
+    return (num + mask) ^ mask;
+}
+
+int ConditionalNegate(int num, int cond)
+{
+    int mask  = -(int)cond;
+    return (num ^ mask) - mask;
+}
+
+int setallbitsfromitozero(int i)
+{
+    return ((1 << (i+1)) - 1);
+}
 
 int main()
 {
@@ -132,4 +148,21 @@ int main()
 
     // Reverse Bits
     printf("Original number: %d, Reversed number: %d\n", 10, ReverseBits(10));
+
+    // FInding Absolute Value
+    int a = -5;
+    int b = 5;
+    printf("The absolute value of %d is %d\n", a, AbsoluteValues(a));
+    printf("The absolute value of %d is %d\n", b, AbsoluteValues(b));
+
+    // Conditional Negate
+    int num = 5;
+    int shouldNegate = 1; // Change to 0 to leave `num` unchanged
+    int result = ConditionalNegate(num, shouldNegate);
+    
+    printf("Conditional Negate of NUmber %d is Result: %d\n",num, result);
+
+    // set all the bits from 0 to i to 1
+    int i = 3;
+    printf("Set all bits from i to 0 for i = %d and result = %d\n", i, setallbitsfromitozero(i));
 }

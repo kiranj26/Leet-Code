@@ -44,18 +44,22 @@ number = (number | (1 << set_pos)) & ~(1 << clear_pos) ^ (1 << toggle_pos);
 21. **Counting bits set to 1**: `while (n) { count++; n &= n - 1; }`✅ 🔥
 22. **Reverse bits**: `while (num) { reverse <<= 1; if (num & 1) reverse ^= 1; num >>= 1; }`✅ 🔥
 23. **Finding the log base 2 (integer)**: `int log = 0; while (n >>= 1) log++;` ✅ 🔥
-24. **Find the absolute value**: `(num ^ (num >> 31)) - (num >> 31)` **Pending**
-25. **Conditionally negate a value without branching**: `(num ^ -flag) + flag` (where `flag` is 0 or 1)
-26. **Merge bits from two numbers**: `(a & mask) | (b & ~mask)`
+24. **Find the absolute value**: `(num ^ (num >> 31)) - (num >> 31)`     
+```
+    int mask = num >> (sizeof(int) * CHAR_BIT - 1);
+    return (num + mask) ^ mask;
+```    
+25. **Conditionally negate a value without branching**: `(num ^ -flag) + flag` (where `flag` is 0 or 1)  ✅ 🔥
+26. **Merge bits from two numbers**: `(a & mask) | (b & ~mask)`✅ 🔥
 27. **Toggle all bits**: `~num`
 28. **Extract a single bit**: `(num >> i) & 1`
 29. **Copy the lowest set bit of `x` to all other bits**: `x | (x - 1)`
-30. **Propagate the rightmost 1-bit to the right**: `x | (x - 1)`
+30. **Propagate the rightmost 1-bit to the right**: `x | (x - 1)` ✅ 🔥
 31. **Get the value of the least significant bit (LSB)**: `x & (-x)`
-32. **Clear all bits from the most significant bit through `i` (inclusive)**: `x & ((1 << i) - 1)`
-33. **Set all bits to 1 from bit `0` to `i`**: `(1 << (i + 1)) - 1`
-34. **Round up to the next highest power of 2**: `int v; v--; v |= v >> 1; v |= v >> 2; v |= v >> 4; v |= v >> 8; v |= v >> 16; v++;`
-35. **Compute the sign of an integer**: `(v >> 31) | (!!v)`
+32. **Clear all bits from the most significant bit through `i` (inclusive)**: `x & ((1 << i) - 1)` 
+33. **Set all bits to 1 from bit `0` to `i`**: `(1 << (i + 1)) - 1` ✅ 🔥
+34. **Round up to the next highest power of 2**: `int v; v--; v |= v >> 1; v |= v >> 2; v |= v >> 4; v |= v >> 8; v |= v >> 16; v++;` 
+35. **Compute the sign of an integer**: `(v >> 31) | (!!v)` **Pending**
 36. **Determine if integers `a` and `b` have opposite signs**: `((a ^ b) < 0)`
 37. **Compute the minimum of `x` and `y` without branching**: `y ^ ((x ^ y) & -(x < y))`
 38. **Compute the maximum of `x` and `y` without branching**: `x ^ ((x ^ y) & -(x < y))`
