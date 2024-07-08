@@ -29,8 +29,8 @@ void printArray(int* array, int size) {
 // Function prototype
 // Approach 1 : My First try using Hashmap
 int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
-    int map1[1000] = { 0 };
-    int map2[1000] = { 0 };
+    int map1[1001] = { 0 };
+    int map2[1001] = { 0 };
     for (int i = 0; i < nums1Size; i++) {
         map1[nums1[i]] = 1;
     }
@@ -38,10 +38,10 @@ int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* ret
         map2[nums2[i]] = 1;
     }
 
-    int* ans = (int*)malloc(1000 * sizeof(int));
+    int* ans = (int*)malloc(1001 * sizeof(int));
     *returnSize = 0;
 
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 1001; i++) {
         if (map1[i] == 1 && map2[i] == 1) {
             ans[*returnSize] = i;
             *returnSize += 1;
@@ -93,6 +93,14 @@ int main() {
     printf("Test Case 5: ");
     printArray(result5, returnSize5);
     free(result5);
+    //Test case [1000,2,2,1000]
+    int nums1_6[] = {1000,2,2,1000};
+    int nums2_6[] = {1000,1000,2};
+    int returnSize6;
+    int* result6 = intersection(nums1_6, 4, nums2_6, 3, &returnSize6);
+    printf("Test Case 6: ");
+    printArray(result6, returnSize6);
+    free(result6);
 
     return 0;
 }
