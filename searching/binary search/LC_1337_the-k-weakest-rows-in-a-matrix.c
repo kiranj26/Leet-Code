@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /**
- * Approach: Sorting and Iterative Check
+ * Approach 1: Sorting and Iterative Check
  * 
  * This approach involves sorting the input array and iterating through it to find the
  * longest subsequence with sum less than or equal to each query.
@@ -43,7 +43,7 @@ int compare(const void *a, const void *b) {
 // queries: the queries array
 // queriesSize: size of the queries array
 // returnSize: pointer to an integer where the size of the result array will be stored
-int* answerQueries(int* nums, int numsSize, int* queries, int queriesSize, int* returnSize) {
+int* answerQueriesApproach1(int* nums, int numsSize, int* queries, int queriesSize, int* returnSize) {
     // Step 1: Sort the nums array in ascending order
     qsort(nums, numsSize, sizeof(int), compare);
 
@@ -76,12 +76,81 @@ int* answerQueries(int* nums, int numsSize, int* queries, int queriesSize, int* 
     return result;  // Return the result array
 }
 
+
+/**
+ * Approach 2: Sorting plus Two Pointers
+ * 
+ * This approach also starts with sorting the input array. Then, for each query, it uses 
+ * the two-pointer technique to find the longest subsequence with sum less than or equal 
+ * to the target value of each query.
+ * 
+ * Steps:
+ * 1. Sort the input array.
+ * 2. For each query, use two pointers to traverse the sorted array and maintain a 
+ *    window of elements that form a valid subsequence with sum less than or equal to 
+ *    the target value.
+ * 3. Track the length of the longest subsequence for each query.
+ * 
+ * Time Complexity: O(n log n + q * n), where n is the size of the input array and q is 
+ * the number of queries. This includes the time to sort the array (O(n log n)) and to 
+ * process each query (O(q * n)).
+ * 
+ * Space Complexity: O(q), for storing the result array.
+ */
+
+// Function to find the longest subsequence with sum <= target_sum using the two-pointer technique
+int findLongestSubsequenceWithSum(int* nums, int numsSize, int target_sum) {
+    int start = 0;
+    int current_sum = 0;
+    int max_length = 0;
+
+    for (int end = 0; end < numsSize; end++) {
+        current_sum += nums[end];
+
+        // If the current sum exceeds the target, move the start pointer
+        while (current_sum > target_sum && start <= end) {
+            current_sum -= nums[start];
+            start++;
+        }
+
+        // Update max_length if the current subsequence is valid
+        if (current_sum <= target_sum) {
+            int current_length = end - start + 1;
+            if (current_length > max_length) {
+                max_length = current_length;
+            }
+        }
+    }
+
+    return max_length;
+}
+
+// Function to process queries using the two-pointer technique
+int* answerQueriesApproach2(int* nums, int numsSize, int* queries, int queriesSize, int* returnSize) {
+    // Sort the nums array in ascending order
+    qsort(nums, numsSize, sizeof(int), compare);
+
+    // Allocate memory for the result array which will store the lengths of the longest subsequences
+    int *result = (int *)malloc(queriesSize * sizeof(int));
+
+    // Iterate through each query in the queries array
+    for (int i = 0; i < queriesSize; i++) {
+        int target_sum = queries[i];
+
+        // Use two pointers start and end for each query to compute the longest subsequence 
+        result[i] = findLongestSubsequenceWithSum(nums, numsSize, target_sum);
+    }
+
+    *returnSize = queriesSize;
+    return result;
+}
+
 int main() {
     // Test Case 1
     int nums1[] = {4, 5, 2, 1};
     int queries1[] = {3, 10, 21};
     int returnSize1;
-    int* result1 = answerQueries(nums1, 4, queries1, 3, &returnSize1);
+    int* result1 = answerQueriesApproach2(nums1, 4, queries1, 3, &returnSize1);
     printf("Test Case 1: ");
     printArray(result1, returnSize1);
     free(result1);
@@ -92,7 +161,7 @@ int main() {
     int nums2[] = {2, 3, 4, 5};
     int queries2[] = {1};
     int returnSize2;
-    int* result2 = answerQueries(nums2, 4, queries2, 1, &returnSize2);
+    int* result2 = answerQueriesApproach2(nums2, 4, queries2, 1, &returnSize2);
     printf("Test Case 2: ");
     printArray(result2, returnSize2);
     free(result2);
@@ -101,7 +170,7 @@ int main() {
     int nums3[] = {7, 4, 1, 8, 3};
     int queries3[] = {3, 10, 15};
     int returnSize3;
-    int* result3 = answerQueries(nums3, 5, queries3, 3, &returnSize3);
+    int* result3 = answerQueriesApproach2(nums3, 5, queries3, 3, &returnSize3);
     printf("Test Case 3: ");
     printArray(result3, returnSize3);
     free(result3);
@@ -110,7 +179,7 @@ int main() {
     int nums4[] = {1, 1, 1, 1};
     int queries4[] = {2, 4, 6};
     int returnSize4;
-    int* result4 = answerQueries(nums4, 4, queries4, 3, &returnSize4);
+    int* result4 = answerQueriesApproach2(nums4, 4, queries4, 3, &returnSize4);
     printf("Test Case 4: ");
     printArray(result4, returnSize4);
     free(result4);
@@ -118,18 +187,3 @@ int main() {
 
     return 0;
 }
-
-/**
- * Boilerplate Code for Another Approach
- * 
- * This section is reserved for implementing an alternative approach for finding the longest subsequence
- * with sum less than or equal to the target values specified in the queries array. This could involve 
- * techniques like dynamic programming, sliding window, etc.
- */
-
-// Define the function signature for the alternative approach
-int* alternativeAnswerQueries(int* nums, int numsSize, int* queries, int queriesSize, int* returnSize) {
-    // Implementation goes here
-    return NULL;  // Placeholder return statement
-}
-
