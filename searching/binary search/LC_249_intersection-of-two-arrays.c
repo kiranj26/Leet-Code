@@ -9,6 +9,14 @@
  * Then, we iterate through the second array and mark its elements in the second hashmap.
  * Finally, we find the intersection by checking which elements are marked in both hashmaps.
  * 
+ * Steps:
+ * 1. Initialize two arrays (hashmaps) of size 1000 to zero.
+ * 2. Traverse the first input array (nums1) and mark its elements in the first hashmap.
+ * 3. Traverse the second input array (nums2) and mark its elements in the second hashmap.
+ * 4. Initialize an array to store the intersection result and a variable to keep track of the size.
+ * 5. Check which elements are marked in both hashmaps and add them to the result array.
+ * 6. Reallocate the result array to the size of the intersection.
+ * 
  * Time Complexity: O(n + m), where n is the size of nums1 and m is the size of nums2. 
  * This is because we iterate through each array once.
  * 
@@ -26,8 +34,8 @@ void printArray(int* array, int size) {
     printf("]\n");
 }
 
-// Function prototype
-// Approach 1 : My First try using Hashmap
+// Approach 1: Using Hashmap
+/*
 int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
     int map1[1001] = { 0 };
     int map2[1001] = { 0 };
@@ -50,6 +58,56 @@ int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* ret
     
     ans = (int*)realloc(ans, *returnSize * sizeof(int));
     return ans;
+}
+*/
+
+/**
+ * Approach 2: Using Sorting and Two Pointers
+ * 
+ * This approach involves sorting both input arrays and then using two pointers to find the intersection.
+ * 
+ * Steps:
+ * 1. Sort both input arrays (nums1 and nums2).
+ * 2. Initialize two pointers (i and j) to 0.
+ * 3. Traverse both arrays using the pointers:
+ *    - If nums1[i] < nums2[j], increment pointer i.
+ *    - If nums1[i] > nums2[j], increment pointer j.
+ *    - If nums1[i] == nums2[j], add the element to the result array if it's not already present, and increment both pointers.
+ * 4. Return the result array.
+ * 
+ * Time Complexity: O(n log n + m log m), where n is the size of nums1 and m is the size of nums2. 
+ * This includes the time to sort both arrays.
+ * 
+ * Space Complexity: O(1) for sorting in place, plus O(min(n, m)) for the result array.
+ */
+
+int compare(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
+    qsort(nums1, nums1Size, sizeof(int), compare);
+    qsort(nums2, nums2Size, sizeof(int), compare);
+    int *result = (int *)malloc(sizeof(int) * 1001);
+    int i = 0;
+    int j = 0;
+    *returnSize = 0;
+    while(i < nums1Size && j < nums2Size) {
+        if(nums1[i] == nums2[j]) {
+            // Add only if it's not already in the result
+            if(*returnSize == 0 || result[*returnSize - 1] != nums1[i]) {
+                result[*returnSize] = nums1[i];
+                *returnSize += 1;
+            }
+            i++;
+            j++;
+        } else if(nums1[i] < nums2[j]) {
+            i++;
+        } else {
+            j++;
+        }
+    }
+    return result;
 }
 
 int main() {
@@ -93,9 +151,9 @@ int main() {
     printf("Test Case 5: ");
     printArray(result5, returnSize5);
     free(result5);
-    //Test case [1000,2,2,1000]
-    int nums1_6[] = {1000,2,2,1000};
-    int nums2_6[] = {1000,1000,2};
+    
+    int nums1_6[] = {1000, 2, 2, 1000};
+    int nums2_6[] = {1000, 1000, 2};
     int returnSize6;
     int* result6 = intersection(nums1_6, 4, nums2_6, 3, &returnSize6);
     printf("Test Case 6: ");
@@ -104,13 +162,3 @@ int main() {
 
     return 0;
 }
-
-// Boilerplate for Approach 2
-// Note: Uncomment and fill in the logic for Approach 2, comment out Approach 1 code
-
-/*
-int* intersection(int* nums1, int nums1Size, int* nums2, int nums2Size, int* returnSize) {
-    // Implement a different approach here (e.g., using sorting and two pointers)
-}
-*/
-
