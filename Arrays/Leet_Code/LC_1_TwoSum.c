@@ -131,8 +131,34 @@ int search(HashTable *ht, int key, int tableSize) {
     return -1;
 }
 
-int* twoSum(int* nums, int numsSize, int target, int* returnSize){
+int* twoSum(int* nums, int numsSize, int target, int* returnSize) {
+    int tableSize = numsSize * 2;
+    HashTable *ht = malloc(tableSize * sizeof(HashTable));
     
+    for (int i = 0; i < tableSize; i++) {
+        ht[i].key = INT_MIN;
+        ht[i].val = -1;
+    }
+
+    for (int i = 0; i < numsSize; i++) {
+        int complement = target - nums[i];
+        int foundIndex = search(ht, complement, tableSize);
+        
+        if (foundIndex != -1) {
+            int *result = malloc(2 * sizeof(int));
+            result[0] = foundIndex;
+            result[1] = i;
+            *returnSize = 2;
+            free(ht);
+            return result;
+        }
+        
+        insert(ht, nums[i], i, tableSize);
+    }
+
+    free(ht);
+    *returnSize = 0;
+    return NULL;
 }
 
 int main() {
