@@ -37,18 +37,18 @@ void rotate(int** matrix, int matrixSize, int* matrixColSize) {
     {
         for (int i = 0;i < (right - left); i++)
         {
+            // update top and bottom with left and right
             int top  = left; 
             int bottom  = right;
-
+            // save topLeft temporarily
             int topLeft = matrix[top][left + i];
-
-            // move bottom ,eft to top left
+            // 4. Move bottomLeft to topLeft
             matrix[top][left + i] = matrix[bottom - i][left];
-
+            // 3. bottomRIght to bottomLeft
             matrix[bottom - i][left] = matrix[bottom][right - i];
-
+            // 2. Move topRight to bottomRight
             matrix[bottom][right - i] = matrix[top + i][right];
-
+            // 1. MOve topLeft to topRight
             matrix[top + i][right] = topLeft;
 
         }
