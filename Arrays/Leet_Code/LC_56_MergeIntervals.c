@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-/*   BRUTE FORCE ABROACH */
+
+/*   BRUTE FORCE APPROACH */
 /**
  * Merges a set of intervals using a brute force approach.
  * 
@@ -27,20 +28,18 @@
  * @param returnColumnSizes Pointer to store the sizes of the columns of the returned array.
  * @return A pointer to the merged intervals array.
  */
+/*
 int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {
-    // if no input o empty input
-    if (intervalsSize <= 0)
-    {
+    // if no input or empty input
+    if (intervalsSize <= 0) {
         *returnSize = 0;
         return NULL;
     }
 
-    // alocate memory for th case where no intervals can be merged
-    int ** mergedIntervals  = (int **)malloc(intervalsSize * sizeof(int *));
-
+    // allocate memory for the case where no intervals can be merged
+    int **mergedIntervals = (int **)malloc(intervalsSize * sizeof(int *));
     *returnColumnSizes = (int *)malloc(intervalsSize * sizeof(int));
-    for (int i = 0; i < intervalsSize; i++)
-    {
+    for (int i = 0; i < intervalsSize; i++) {
         mergedIntervals[i] = (int *)malloc(2 * sizeof(int));
         (*returnColumnSizes)[i] = 2;
     }
@@ -49,45 +48,110 @@ int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* retu
     int merged = 0;
 
     do {
-        merged  = 0;
-        for (int i = 0; i< intervalsSize; i++)
-        {
+        merged = 0;
+        for (int i = 0; i < intervalsSize; i++) {
             if (intervals[i] == NULL) continue;
 
-            for (int j = i+1; j < intervalsSize; j++)
-            {
-                if (intervals[j] != NULL && !( intervals[i][1] < intervals[j][0] || intervals[i][0] > intervals[j][1]))
-                {
+            for (int j = i + 1; j < intervalsSize; j++) {
+                if (intervals[j] != NULL && !(intervals[i][1] < intervals[j][0] || intervals[i][0] > intervals[j][1])) {
                     // merge interval i and j 
-                    intervals[i][0] = (intervals[i][0] < intervals[j][0]) ? intervals[i][0]: intervals[j][0];
-                    intervals[i][1] = (intervals[i][1] > intervals[j][1]) ? intervals[i][1]: intervals[j][1];
+                    intervals[i][0] = (intervals[i][0] < intervals[j][0]) ? intervals[i][0] : intervals[j][0];
+                    intervals[i][1] = (intervals[i][1] > intervals[j][1]) ? intervals[i][1] : intervals[j][1];
 
                     free(intervals[j]);
                     intervals[j] = NULL;
 
-                    merged  = 1; 
+                    merged = 1; 
                 }
-                if (merged)
-                {
+                if (merged) {
                     break;
                 }
             }
-
         }
-        if (!merged)
-        {
-            for (int i = 0; i<  intervalsSize ; i++)
-            {
-                if (intervals[i] != NULL)
-                {
-                    mergedIntervals[mergedCount][0] =  intervals[i][0] ; 
-                    mergedIntervals[mergedCount][1] =  intervals[i][1];
+        if (!merged) {
+            for (int i = 0; i < intervalsSize; i++) {
+                if (intervals[i] != NULL) {
+                    mergedIntervals[mergedCount][0] = intervals[i][0];
+                    mergedIntervals[mergedCount][1] = intervals[i][1];
                     mergedCount++;
                 }
             }
         }
+    } while (merged);
+
+    *returnSize = mergedCount;
+    return mergedIntervals;
+}
+*/
+
+/*   OPTIMIZED APPROACH */
+/**
+ * Merges a set of intervals using an optimized approach.
+ * 
+ * @ Optimized Approach:
+ * - Sort the intervals based on their start times.
+ * - Use a single pass to merge overlapping intervals.
+ * - Maintain a list of merged intervals and add new intervals or merge with the last interval in the list.
+ *
+ * Steps:
+ * 1. Sort the intervals by their start times.
+ * 2. Iterate through the sorted intervals.
+ * 3. If the current interval overlaps with the last interval in the merged list, merge them.
+ * 4. Otherwise, add the current interval to the merged list.
+ *
+ * Time Complexity:
+ * - O(n log n), where n is the number of intervals.
+ * - Sorting the intervals takes O(n log n), and the single pass through the intervals takes O(n).
+ *
+ * Space Complexity:
+ * - O(n), where n is the number of intervals.
+ * - Additional space is used to store the merged intervals.
+ *
+ * @param intervals 2D array of intervals where intervals[i] = [start, end].
+ * @param intervalsSize Size of the intervals array.
+ * @param intervalsColSize Size of each interval (always 2).
+ * @param returnSize Pointer to store the size of the returned array.
+ * @param returnColumnSizes Pointer to store the sizes of the columns of the returned array.
+ * @return A pointer to the merged intervals array.
+ */
+int compare(const void* a, const void* b) {
+    return ((int*)a)[0] - ((int*)b)[0];
+}
+
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {
+    // if no input or empty input
+    if (intervalsSize <= 0) {
+        *returnSize = 0;
+        return NULL;
     }
-    while(merged);
+
+    // Sort the intervals by their start times
+    qsort(intervals, intervalsSize, sizeof(int*), compare);
+
+    // Allocate memory for the merged intervals
+    int** mergedIntervals = (int**)malloc(intervalsSize * sizeof(int*));
+    *returnColumnSizes = (int*)malloc(intervalsSize * sizeof(int));
+    for (int i = 0; i < intervalsSize; i++) {
+        mergedIntervals[i] = (int*)malloc(2 * sizeof(int));
+        (*returnColumnSizes)[i] = 2;
+    }
+
+    int mergedCount = 0;
+    mergedIntervals[0][0] = intervals[0][0];
+    mergedIntervals[0][1] = intervals[0][1];
+    mergedCount++;
+
+    for (int i = 1; i < intervalsSize; i++) {
+        if (intervals[i][0] <= mergedIntervals[mergedCount - 1][1]) {
+            // Merge the intervals
+            mergedIntervals[mergedCount - 1][1] = (mergedIntervals[mergedCount - 1][1] > intervals[i][1]) ? mergedIntervals[mergedCount - 1][1] : intervals[i][1];
+        } else {
+            // Add the new interval
+            mergedIntervals[mergedCount][0] = intervals[i][0];
+            mergedIntervals[mergedCount][1] = intervals[i][1];
+            mergedCount++;
+        }
+    }
 
     *returnSize = mergedCount;
     return mergedIntervals;
