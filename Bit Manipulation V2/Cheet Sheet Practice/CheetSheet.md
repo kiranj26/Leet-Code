@@ -44,7 +44,8 @@ number = (number | (1 << set_pos)) & ~(1 << clear_pos) ^ (1 << toggle_pos);
 21. **Counting bits set to 1**: `while (n) { count++; n &= n - 1; }`✅ 🔥
 22. **Reverse bits**: `while (num) { reverse <<= 1; if (num & 1) reverse ^= 1; num >>= 1; }`✅ 🔥
 23. **Finding the log base 2 (integer)**: `int log = 0; while (n >>= 1) log++;` ✅ 🔥
-24. **Find the absolute value**: `(num ^ (num >> 31)) - (num >> 31)`     
+24. **Find the absolute value**: `(num ^ (num >> 31)) - (num >> 31)`
+    **Note** To convert negative to positive we need to flip the bit and add 1. The first part num ^ (num >> 31) flips all bits as -1 XOR with input flips all bits. Second part hwever converts to -1 making +1.         
 ```
     int mask = num >> (sizeof(int) * CHAR_BIT - 1);
     return (num + mask) ^ mask;
