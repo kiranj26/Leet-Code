@@ -244,6 +244,10 @@ unsigned int setBitField(unsigned int x, unsigned int value, int pos, int len) {
     return x;
 }
 ```
+3. ****
+```
+
+```
 
 ## Websites
 1. https://www.topcoder.com/thrive/articles/A%20bit%20of%20fun:%20fun%20with%20bits
