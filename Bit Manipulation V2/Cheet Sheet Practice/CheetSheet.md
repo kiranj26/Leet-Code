@@ -25,6 +25,26 @@ int SetClearToggleBit(int num, int operation, int pos)
 number = (number | (1 << set_pos)) & ~(1 << clear_pos) ^ (1 << toggle_pos);
 
 ```
+**Note** : Setting/Clearing/Toggling a Range of Bits:
+```
+// Set a range of bits from bit 'start' to bit 'end'
+unsigned int setBitRange(unsigned int x, int start, int end) {
+    unsigned int mask = ((1 << (end - start + 1)) - 1) << start;
+    return x | mask;
+}
+
+// Clear a range of bits from bit 'start' to bit 'end'
+unsigned int clearBitRange(unsigned int x, int start, int end) {
+    unsigned int mask = ~(((1 << (end - start + 1)) - 1) << start);
+    return x & mask;
+}
+
+// Toggle a range of bits from bit 'start' to bit 'end'
+unsigned int toggleBitRange(unsigned int x, int start, int end) {
+    unsigned int mask = ((1 << (end - start + 1)) - 1) << start;
+    return x ^ mask;
+}
+```
 
 7. **Lowest set bit OR Righmost Set bit**: `num & -num` ✅ 🔥
 8. **Left Most Set Bit**: `log2(num)` Use math.h ✅ 🔥    
@@ -198,6 +218,32 @@ Bit masks are used in programming to manipulate individual bits of data. They en
 
 These masks are fundamental tools for performing efficient bit manipulation, aiding in operations ranging from simple bit toggling to complex bitwise arithmetic and data alignment tasks.     
 
+## Misc    
+1. **Extract bit field from `pos` of length `len`** : 
+```
+// Extract bit field from `pos` of length `len`
+unsigned int extractBitField(unsigned int x, int pos, int len) {
+    unsigned int mask = (1 << len) - 1;
+    return (x >> pos) & mask;
+}
+// Set bit field from `pos` of length `len` to `value`
+unsigned int setBitField(unsigned int x, unsigned int value, int pos, int len) {
+    unsigned int mask = (1 << len) - 1;
+    return (x & ~(mask << pos)) | ((value & mask) << pos);
+}
+// Example: Extract 3-bit field from position 2
+// x = 0x7F (Binary: 0111 1111), pos = 2, len = 3
+// Extracted: 0x07 (Binary: 0000 0111)
+```
+2. **Set bit field from `pos` of length `len` to `value`**:    
+```
+unsigned int setBitField(unsigned int x, unsigned int value, int pos, int len) {
+    unsigned int mask = (1 << len) - 1;   // Create a mask with 'len' bits set to 1
+    x &= ~(mask << pos);                  // Clear the bits in the specified range
+    x |= (value & mask) << pos;           // Set the bits in the specified range to 'value'
+    return x;
+}
+```
 
 ## Websites
 1. https://www.topcoder.com/thrive/articles/A%20bit%20of%20fun:%20fun%20with%20bits
