@@ -3,7 +3,7 @@
 This cheat sheet provides a collection of 50 essential bit manipulation techniques and shortcuts, laying the groundwork for solving more complex problems in programming and computer science.
 
 ### Techniques & Shortcuts
-
+**Convert Negative to Absolutie Value** : num = -num
 1. **Set a bit**: `num |= (1 << i)`  ✅
 2. **Clear a bit**: `num &= ~(1 << i)`  ✅
 3. **Toggle a bit**: `num ^= (1 << i)`  ✅
@@ -244,7 +244,7 @@ unsigned int setBitField(unsigned int x, unsigned int value, int pos, int len) {
     return x;
 }
 ```
-3. ****
+3. **Rotating Bits: Rotating bits to the left or right can be useful in various algorithms and hardware interactions.**
 ```
 
 ```
